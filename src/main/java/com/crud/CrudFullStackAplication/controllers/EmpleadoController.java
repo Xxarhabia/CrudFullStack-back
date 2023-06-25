@@ -7,11 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.annotation.Retention;
 import java.util.List;
 
 @RestController
@@ -27,14 +29,15 @@ public class EmpleadoController {
         return empleadoService.listarEmpleado();
     }
 
-    @GetMapping("/registrar-empleado")
-    public void agregarEmpleado(){
-
-    }
-
     @PostMapping("/empleados")
     public ResponseEntity<EmpleadoEntity> guardarEmpleado(@RequestBody EmpleadoEntity empleado){
-        var empleadoGuardado = empleadoService.agregarEmpleado(empleado);
+        EmpleadoEntity empleadoGuardado = empleadoService.agregarEmpleado(empleado);
         return ResponseEntity.ok(empleadoGuardado);
+    }
+
+    @GetMapping("/empleados/{id_empleado}")
+    public ResponseEntity<EmpleadoEntity> obtenerEmpleadoPorId(@PathVariable int idEmpleado){
+        EmpleadoEntity empleadoEncontrado = empleadoService.encontrarEmpleado(idEmpleado);
+        return ResponseEntity.ok(empleadoEncontrado);
     }
 }

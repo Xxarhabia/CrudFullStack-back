@@ -12,5 +12,5 @@ public interface EmpleadoService {
 
     void eliminarEmpleado(EmpleadoEntity empleado);
 
-    EmpleadoEntity encontrarEmpleado(EmpleadoEntity empleado);
+    EmpleadoEntity encontrarEmpleado(int id);
 }

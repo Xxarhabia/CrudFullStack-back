@@ -1,6 +1,7 @@
 package com.crud.CrudFullStackAplication.services.impl;
 
 import com.crud.CrudFullStackAplication.entities.EmpleadoEntity;
+import com.crud.CrudFullStackAplication.exceptions.ResourceNotFoundException;
 import com.crud.CrudFullStackAplication.repositories.EmpleadoRepository;
 import com.crud.CrudFullStackAplication.services.EmpleadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,10 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     }
 
     @Override
-    public EmpleadoEntity encontrarEmpleado(EmpleadoEntity empleado) {
-        return repository.findById(empleado.getIdEmpleado()).orElse(null);
+    public EmpleadoEntity encontrarEmpleado(int id) {
+        return repository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("No se encontró el usuario con el id " + id));
     }
+
+
 }
